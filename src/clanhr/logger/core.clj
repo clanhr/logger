@@ -1,4 +1,4 @@
-(ns logger.core
+(ns clanhr.logger.core
   "Generic logging abstraction"
   (:require [environ.core :refer [env]]))
 
@@ -12,10 +12,17 @@
   [account-id user-id]
   (str account-id ":" user-id ":" (timespan) ":" (rand-int 100)))
 
+(defn- logstdout
+  "Logs to stdout"
+  [data]
+  (when (env :clanhr-logger-log-stdout)
+    (println (str "LOG " data))))
+
 (defn log
   "Logs information"
   [data]
-  (let [data (merge {:env (env :clanhr-env)}
+  (let [data (merge {:env (env :clanhr-env)
+                     :Timestamp (timespan)}
                     data)]
-    (println (str "LOG " data))))
+    (logstdout data)))
 

@@ -1,6 +1,6 @@
 (ns logger.core-test
   (:require [clojure.test :refer :all]
-            [logger.core :as core]))
+            [clanhr.logger.core :as core]))
 
 (deftest transaction-id
   (let [tid (core/generate-transaction-id "aid" "uid")]
