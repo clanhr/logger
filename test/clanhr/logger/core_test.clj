@@ -1,4 +1,4 @@
-(ns logger.core-test
+(ns clanhr.logger.core-test
   (:require [clojure.test :refer :all]
             [clanhr.logger.core :as core]))
 
