@@ -1,7 +1,8 @@
 (ns clanhr.logger.core
   "Generic logging abstraction"
   (:require [environ.core :refer [env]]
-            [clanhr.logger.logentries :as logentries]))
+            [clanhr.logger.logentries :as logentries]
+            [result.core :as result]))
 
 (defn- timespan
   "Generates a timespan for now"
@@ -22,9 +23,14 @@
 (defn log
   "Logs information"
   [data]
-  (let [data (merge {:env (env :clanhr-env)
-                     :Timestamp (timespan)}
-                    data)]
-    (logstdout data)
-    (logentries/log data)))
+  (try
+    (let [data (merge {:env (env :clanhr-env)
+                       :Timestamp (timespan)}
+                      data)]
+      (logstdout data)
+      (logentries/log data)
+      (result/success))
+    (catch Exception e
+      (result/exception e))))
+
 
