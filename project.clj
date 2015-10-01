@@ -1,4 +1,4 @@
-(defproject clanhr/logger "0.2.0"
+(defproject clanhr/logger "0.3.0"
   :description "Logging abstraction"
   :url "https://github.com/clanhr/logger"
   :dependencies [[org.clojure/clojure "1.7.0"]

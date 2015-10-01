@@ -18,7 +18,7 @@
   "Logs to stdout"
   [data]
   (when (= "true" (env :clanhr-logger-log-stdout))
-    (println (str "LOG " data))))
+    (println data)))
 
 (defn log
   "Logs information"
