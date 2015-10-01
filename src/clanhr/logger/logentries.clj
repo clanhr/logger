@@ -13,9 +13,10 @@
 (defn log
   "Sends log data to logentries, async"
   [data]
-  (let [data {:event data}]
-    (http/post (str "https://js.logentries.com/v1/logs/"(logentries-token))
-               {:body (json/generate-string data)})))
+  (when (= "true" (env :clanhr-logger-log-logentries))
+    (let [data {:event data}]
+      (http/post (str "https://js.logentries.com/v1/logs/"(logentries-token))
+                 {:body (json/generate-string data)}))))
 
 (defn log-sync
   "Sends log sync"
