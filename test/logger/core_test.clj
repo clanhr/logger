@@ -1,7 +1,8 @@
 (ns logger.core-test
   (:require [clojure.test :refer :all]
-            [logger.core :refer :all]))
+            [logger.core :as core]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(deftest transaction-id
+  (let [tid (core/generate-transaction-id "aid" "uid")]
+    (is tid)
+    (is (re-matches #"aid:uid:\d+:\d+" tid))))

@@ -1,6 +1,13 @@
-(ns logger.core)
+(ns logger.core
+  "Generic logging abstraction")
 
-(defn foo
-  "I don't do a whole lot."
-  [x]
-  (println x "Hello, World!"))
+(defn- timespan
+  "Generates a timespan for now"
+  []
+  (int (/ (System/currentTimeMillis) 1000)))
+
+(defn generate-transaction-id
+  "Generates an unique transaction id"
+  [account-id user-id]
+  (str account-id ":" user-id ":" (timespan) ":" (rand-int 100)))
+
