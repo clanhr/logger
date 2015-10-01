@@ -1,5 +1,6 @@
 (ns logger.core
-  "Generic logging abstraction")
+  "Generic logging abstraction"
+  (:require [environ.core :refer [env]]))
 
 (defn- timespan
   "Generates a timespan for now"
@@ -10,4 +11,11 @@
   "Generates an unique transaction id"
   [account-id user-id]
   (str account-id ":" user-id ":" (timespan) ":" (rand-int 100)))
+
+(defn log
+  "Logs information"
+  [data]
+  (let [data (merge {:env (env :clanhr-env)}
+                    data)]
+    (println (str "LOG " data))))
 
