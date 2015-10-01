@@ -25,12 +25,12 @@
   [data]
   (try
     (let [data (merge {:env (env :clanhr-env)
-                       :Timestamp (timespan)}
+                       :t (timespan)}
                       data)]
       (logstdout data)
-      (logentries/log data)
       (result/success))
     (catch Exception e
+      (println e)
       (result/exception e))))
 
 
