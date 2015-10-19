@@ -16,8 +16,9 @@
   [handler service-name]
   (fn [context]
     (let [tid (get-tid context)
-          context (merge context {:tid tid
-                                  :service-name (name service-name)})
-          response (handler context)]
-      (logger/log (merge context :response response))
-      response)))
+          context {:tid tid
+                   :service-name (name service-name)}]
+      (logger/log context)
+      (let [response (handler context)]
+        (logger/log response)
+        response))))

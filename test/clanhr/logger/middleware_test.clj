@@ -10,6 +10,6 @@
       (letfn [(handler [request]
                 response-hash)]
         (let [req (request :get "/")
-              response ((logger-middleware/run handler "bubu-service") req)]
+              response ((logger-middleware/run handler :bubu-service) req)]
           (is (= 200
                  (:status response))))))))
