@@ -15,10 +15,9 @@
   "Logs requests"
   [handler service-name]
   (fn [context]
-    (let [tid (get-tid context)
-          context {:tid tid
-                   :service-name (name service-name)}]
-      (logger/log context)
-      (let [response (handler context)]
+    (let [tid (get-tid context)]
+      (logger/log (merge context {:tid tid
+                                  :service-name (name service-name)}))
+      (let [response (handler (assoc context :tid tid))]
         (logger/log response)
         response))))
