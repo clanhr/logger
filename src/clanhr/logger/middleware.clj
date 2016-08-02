@@ -11,13 +11,19 @@
       (logger/generate-transaction-id (get-in context [:principal :account])
                                       (get-in context [:principal :user-id]))))
 
+(defn- log [data]
+  (-> data
+      (dissoc :compojure.api.middleware/options
+              :ring.swagger.middleware/data)
+      (logger/log)))
+
 (defn run
   "Logs requests"
   [handler service-name]
   (fn [context]
     (let [tid (get-tid context)]
-      (logger/log (merge context {:tid tid
-                                  :service-name (name service-name)}))
+      (log (merge context {:tid tid
+                           :service-name (name service-name)}))
       (let [response (handler (assoc context :tid tid))]
-        (logger/log response)
+        (log response)
         response))))
